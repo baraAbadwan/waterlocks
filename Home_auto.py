@@ -76,13 +76,18 @@ for lock in locks_of_interest:
     dirs[lock] = load_dir
     
 
-
+df_combo = pd.DataFrame()
 for lock in dfs:
     st.write('-------------------------')
     st.write(lock)
     dfs[lock] = df
     dirs[lock] = load_dir
-
+    df['LOCK_NAME'] = lock
+    df_combo = pd.concat([df_combo, df])
+    combo_dir = f'data/lock_queue_delays_{old_date}.csv'
     st.markdown(get_csv_download_link(df, load_dir), unsafe_allow_html=True)
 
-
+st.write('-------------------------')
+st.write('Download combined data')
+df_combo.to_csv(combo_dir)
+st.markdown(get_csv_download_link(df, load_dir), unsafe_allow_html=True)
