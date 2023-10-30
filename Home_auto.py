@@ -85,7 +85,7 @@ for lock in dfs:
     df['LOCK_NAME'] = lock
     df_combo = pd.concat([df_combo, df])
     combo_dir = f'data/lock_queue_delays_{old_date}.csv'
-    st.markdown(get_csv_download_link(df, load_dir), unsafe_allow_html=True)
+    st.markdown(get_csv_download_link(df, combo_dir), unsafe_allow_html=True)
 
 st.write('-------------------------')
 st.write('Download combined data')
