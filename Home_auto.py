@@ -67,9 +67,11 @@ for lock in locks_of_interest:
     data = fetch_lock_queue_data(river_code, lock_no)
     df = xml_to_dataframe(data)
     df['LOCK_NAME'] = lock
-    # try: 
-    old_df = pd.read_csv(load_dir)
-    df = pd.concat([df, old_df]).drop_duplicates()
+    try: 
+        old_df = pd.read_csv(load_dir)
+        df = pd.concat([df, old_df]).drop_duplicates()
+    except:
+        pass
     df.to_csv(save_dir, index = False)
     # st.write(df)
     dfs[lock] = df
@@ -83,12 +85,16 @@ for lock in dfs:
     st.write(lock)
     dfs[lock] = df
     dirs[lock] = load_dir
-    df['LOCK_NAME'] = lock
+    # df['LOCK_NAME'] = lock
     df_combo = pd.concat([df_combo, df])
-    st.markdown(get_csv_download_link(df, load_dir), unsafe_allow_html=True)
+    # st.markdown(get_csv_download_link(df, load_dir), unsafe_allow_html=True)
 
 
 combo_dir = f'data/lock_queue_delays_{today_str}.csv'
+
+old_data_df = pd.read_csv('old_lock_data/combined_old_data.csv')
+df_combo = pd.concat([df_combo, old_data_df]).drop_duplicates(subset=['VESSEL_NAME', 'ARRIVAL_DATE']).reset_index(drop=True)
+
 
 st.write('-------------------------')
 st.write('Download combined data')

@@ -39,16 +39,17 @@ def collate_old_data(dir_name):
 locks_of_interest = { "Port Allen":"01" , "Bayou Sorrel":"02", "Leland Bowman":"77", "Calcasieu":"08"}
 
 
-
+combined_data = pd.DataFrame()
 for lock in locks_of_interest:
-    new_data_dir = f"data/lock_queue_delays_{lock}_2023-10-26.csv"
-    dir = f"data/lock_queue_delays_{lock}_2023-10-26.csv"
+    # new_data_dir = f"data/lock_queue_delays_{lock}_2023-10-26.csv"
 
     old_data_dir = f"old_lock_data/{lock}_combined.csv"
-    new_data = pd.read_csv(new_data_dir)
+    # new_data = pd.read_csv(new_data_dir)
     old_data = pd.read_csv(old_data_dir)
-    combined_data = pd.concat([new_data, old_data]).drop_duplicates(subset=['VESSEL_NAME', 'ARRIVAL_DATE']).reset_index(drop=True)
+    combined_data = pd.concat([combined_data, old_data]).drop_duplicates(subset=['VESSEL_NAME', 'ARRIVAL_DATE']).reset_index(drop=True)
 
 
-    combined_data.to_csv(dir)
-    print(combined_data)
+
+dir = f"old_lock_data/combined_old_data.csv"
+combined_data.to_csv(dir)
+print(combined_data)
