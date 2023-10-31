@@ -66,7 +66,7 @@ for lock in locks_of_interest:
     lock_no = locks_of_interest[lock]
     data = fetch_lock_queue_data(river_code, lock_no)
     df = xml_to_dataframe(data)
-
+    df['LOCK_NAME'] = lock
     # try: 
     old_df = pd.read_csv(load_dir)
     df = pd.concat([df, old_df]).drop_duplicates()
@@ -74,8 +74,9 @@ for lock in locks_of_interest:
     # st.write(df)
     dfs[lock] = df
     dirs[lock] = load_dir
+    # st.write(df)
     
-
+st.write(dfs)
 df_combo = pd.DataFrame()
 for lock in dfs:
     st.write('-------------------------')
