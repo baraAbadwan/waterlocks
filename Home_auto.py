@@ -78,11 +78,11 @@ for lock in locks_of_interest:
     dirs[lock] = load_dir
     # st.write(df)
     
-st.write(dfs)
+# st.write(dfs)
 df_combo = pd.DataFrame()
 for lock in dfs:
-    st.write('-------------------------')
-    st.write(lock)
+    # st.write('-------------------------')
+    # st.write(lock)
     dfs[lock] = df
     dirs[lock] = load_dir
     # df['LOCK_NAME'] = lock

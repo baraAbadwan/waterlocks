@@ -46,6 +46,7 @@ for lock in locks_of_interest:
     old_data_dir = f"old_lock_data/{lock}_combined.csv"
     # new_data = pd.read_csv(new_data_dir)
     old_data = pd.read_csv(old_data_dir)
+    old_data['LOCK_NAME'] = lock
     combined_data = pd.concat([combined_data, old_data]).drop_duplicates(subset=['VESSEL_NAME', 'ARRIVAL_DATE']).reset_index(drop=True)
 
 
